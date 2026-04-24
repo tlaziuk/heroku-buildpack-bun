@@ -56,6 +56,9 @@ export BUN_DIR=$BUILD_DIR/.heroku/cache
 curl -fsSL --retry-connrefused --retry 3 https://bun.sh/install | bash $BUN_INSTALL_VERSION
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+# the bunx symlink might point to the absolute path (e.g. /tmp/build_45505a2e/.heroku/bin/bun), so it should be fixed
+ln -sfr -T $BUN_INSTALL/bin/bun $BUN_INSTALL/bin/bunx
+
 # set environment variables at runtime
 PROFILE_PATH="$BUILD_DIR/.profile.d/bun.sh"
 mkdir -p $(dirname $PROFILE_PATH)
